@@ -1,0 +1,168 @@
+const gameMap = {
+  start: {
+    background: "res://assets/backgrounds/stairway.png",
+    key_item_unlocks: {
+      down: ["crystal_shard", "obsidian_shard"],
+    },
+    triggers: {
+      up: {
+        message: "You ascend to the glowing landing.",
+        next_screen: "landing",
+      },
+      down: {
+        message:
+          "The shards rotate and align in missing slots, a passage opens and pulls you down into it.",
+        next_screen: "depths",
+      },
+      inspect: {
+        message: "You see several markings. What will you examine?",
+        options: [
+          {
+            label: "Inspect the crystal symbol",
+            message: "It pulses faintly with heat.",
+            tp_cost: 2,
+            additional_message: {
+              2: {
+                message: "Still just faintly pulsing....",
+              },
+            },
+          },
+          {
+            label: "Inspect the ancient shards",
+            message:
+              "They're displayed in a strange pattern, their seems to be a few missing...",
+            additional_message: {
+              2: {
+                message: "You feel a strange energy emanating from them.",
+              },
+              3: {
+                message: "The energy is responding to your continued interest.",
+              },
+              4: {
+                message: "You feel a surge of power as you touch the runes.",
+              },
+              5: {
+                message: "The runes seem to be a key to something greater.",
+              },
+              6: {
+                message: "You feel a connection to the universe itself.",
+              },
+              7: {
+                message: "The runes seem to be a key to something greater.",
+                tp_cost: "2",
+                next_screen: "hidden_chamber",
+              },
+            },
+          },
+        ],
+      },
+    },
+  },
+  landing: {
+    background: "res://assets/backgrounds/landing.png",
+    triggers: {
+      down: {
+        message: "You descend the staircase back to the beginning.",
+        next_screen: "start",
+      },
+      up: {
+        message: "You ascend the mysterious stairway...",
+        next_screen: "empty_space",
+        hidden: true,
+      },
+      inspect: {
+        message: "You see several markings. What will you examine?",
+        options: [
+          {
+            label: "Inspect the crystal symbol",
+            message:
+              "Upon brushing the symbols, a hidden stairway reveals itself above...",
+            unlocks_direction: "up",
+          },
+          {
+            label: "Inspect the ancient runes",
+            message: "They're written in a lost celestial script.",
+          },
+        ],
+      },
+    },
+  },
+  empty_space: {
+    background: "res://assets/backgrounds/empty_space.png",
+    triggers: {
+      left: {
+        message: "You quietly return to the previous platform.",
+        next_screen: "start",
+      },
+      inspect: {
+        message: "You see several markings. What will you examine?",
+        options: [
+          {
+            label: "Touch the glowing shard",
+            message:
+              "It pulses with heat and then dissolves into light, as the light clears you find yourself in a hidden chamber.",
+            tp_cost: 2,
+            once: true,
+            grants_item: {
+              id: "crystal_shard",
+              type: "key",
+            },
+            next_screen: "hidden_chamber",
+          },
+          {
+            label: "Inspect the runes",
+            message: "They're written in a lost celestial script.",
+          },
+        ],
+      },
+    },
+  },
+  hidden_chamber: {
+    background: "res://assets/backgrounds/deep_space.png",
+    triggers: {
+      inspect: {
+        message: "You are surrounded by the darkness. What will you do?",
+        options: [
+          {
+            label: "Reach into the darkness",
+            message:
+              "You feel a warm pulse of energy. It seems to be a obsidian shard.",
+            grants_item: {
+              id: "obsidian_shard",
+              type: "key",
+            },
+          },
+          {
+            label: "Leap into the darkness",
+            message: "You leap and descend into darkness.",
+            next_screen: "start",
+          },
+        ],
+      },
+    },
+  },
+  depths: {
+    background: "res://assets/backgrounds/depths.png",
+    triggers: {
+      up: {
+        message: "You ascend the staircase back to the beginning.",
+        next_screen: "start",
+      },
+      inspect: {
+        message: "You see several markings. What will you examine?",
+        options: [
+          {
+            label: "Inspect the crystal symbol",
+            message: "It pulses faintly with heat.",
+          },
+          {
+            label: "Inspect the ancient runes",
+            message: "They're written in a lost celestial script.",
+          },
+        ],
+      },
+    },
+  },
+};
+
+export default gameMap;
